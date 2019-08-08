@@ -11,8 +11,8 @@ namespace CartTests
         public void Add_To_Empty_Cart_test()
         {
             CartItem cartItem = new CartItem();
-            Product product1 = new Product("Apple",100,Category.grocery);
-            Product product2 = new Product("Banana",200, Category.grocery);
+            Product product1 = new Product("Apple",100,"grocery");
+            Product product2 = new Product("Banana",200, "grocery");
             cartItem.AddItem(product1);
 
             cartItem.AddItem(product2);
@@ -27,32 +27,39 @@ namespace CartTests
         }
 
         [Fact]
-        public void Check_Total_Price_Without_Discount()
+        public void Check_Total_Price_With_Category_Discount()
         {
             CartItem cartItem = new CartItem();
-            Product product1 = new Product("Apple", 100, Category.grocery);
-            Product product2 = new Product("Banana", 200, Category.grocery);
+            Product product1 = new Product("Apple", 100, "grocery");
+            Product product2 = new Product("Banana", 200, "grocery");
             cartItem.AddItem(product1);
             cartItem.AddItem(product2);
 
-            double expected = 300;
-            Cart cart = new Cart(cartItem,"");
+            DiscountFactory discountFactory = new DiscountFactory();
+            IDiscount discount = discountFactory.DiscountType("product");
+
+
+            double expected = 270;
+            Cart cart = new Cart(cartItem,discount,"");
 
             Assert.Equal(expected, cart.GetFinalPrice());
         }
 
         [Fact]
-        public void Check_Total_Price_With_Discount()
+        public void Check_Total_Price_With_Cart_Discount()
         {
             CartItem cartItem = new CartItem();
-            Product product1 = new Product("Apple", 100, Category.grocery);
-            Product product2 = new Product("Banana", 200, Category.grocery);
+            Product product1 = new Product("Apple", 100, "grocery");
+            Product product2 = new Product("Banana", 200, "grocery");
             cartItem.AddItem(product1);
             cartItem.AddItem(product2);
             cartItem.AddItem(product2);
 
+            DiscountFactory discountFactory = new DiscountFactory();
+            IDiscount discount = discountFactory.DiscountType("Cart");
+
             double expected = 250;
-            Cart cart = new Cart(cartItem, "GET50");
+            Cart cart = new Cart(cartItem, discount,"GET50");
 
             Assert.Equal(expected, cart.GetFinalPrice());
         }
