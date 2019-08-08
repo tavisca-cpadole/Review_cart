@@ -13,13 +13,16 @@ namespace AddToCart
 
     public class Product {
 
-        public Product(string name,double price) {
+        public Product(string name,double price,Category category) {
             this.Name = name;
             this.Price = price;
+            this.Category = category;
         }
 
         public string Name { get; }
         public double Price { get; }
+
+        public Category Category { get; }
     }
 
     public class CartItem {
@@ -41,13 +44,34 @@ namespace AddToCart
             }
         }
 
-        public Double GetPrice(Product product)
+        public double GetPrice(Product product)
         {
-            return _cartItems[product] * product.Price;
+            try
+            {
+                return _cartItems[product] * product.Price - (_cartItems[product] * product.Price) * (double)product.Category / 100;
+            }
+            catch (Exception)
+            {
+                throw new EmptyCartException();
+            }
         }
 
 
     }
+
+
+    [Serializable]
+    class EmptyCartException : Exception
+    {
+
+        public EmptyCartException()
+            : base(String.Format("Cart Is Empty!"))
+        {
+
+        }
+
+    }
+
 
     public class Cart
     {
@@ -64,7 +88,7 @@ namespace AddToCart
                 DiscountApplied = true;
         }
 
-        public Double GetTotal()
+        public double GetTotal()
         {
             double totalPrice = 0;
             foreach (var item in _cartItem.ItemList())
@@ -74,7 +98,7 @@ namespace AddToCart
             return totalPrice;
         }
 
-        public double GetFinal()
+        public double GetFinalPrice()
         {
             if (DiscountApplied)
             {
@@ -94,7 +118,7 @@ namespace AddToCart
             {"GET50",50 }
         };
 
-        public Double GetDiscount(string discountCode)
+        public double GetDiscount(string discountCode)
         {
             if (discountCoupon.ContainsKey(discountCode))
                 return discountCoupon[discountCode];
@@ -102,4 +126,14 @@ namespace AddToCart
                 return 0;
         }
     }
+
+    public enum Category
+    {
+        dairy=10,
+        educational=2,
+        entertainment=5,
+        grocery=3
+    }
+
+
 }
