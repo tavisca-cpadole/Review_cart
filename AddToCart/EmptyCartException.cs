@@ -3,11 +3,11 @@
 namespace AddToCart
 {
     [Serializable]
-    class EmptyCartException : Exception
+    class NoSuchProductException : Exception
     {
 
-        public EmptyCartException()
-            : base(String.Format("Cart Is Empty!"))
+        public NoSuchProductException()
+            : base(String.Format("No Such Product Is Present In The Cart!"))
         {
 
         }

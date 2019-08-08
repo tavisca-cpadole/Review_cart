@@ -2,7 +2,7 @@
 {
     public class Cart
     {
-        public bool DiscountApplied { get; set; } = false;
+        private bool _DiscountApplied { get; set; } = false;
 
         private CartItem _cartItem;
         private IDiscount _discount;
@@ -13,13 +13,13 @@
             this._discount = discount;
             this._discountCode = discountCode;
             if (discountCode.Length > 1)
-                DiscountApplied = true;
+                _DiscountApplied = true;
         }
 
         public double GetTotal()
         {
             double totalPrice = 0;
-            if (!DiscountApplied)
+            if (!_DiscountApplied)
             {
                 foreach (var item in _cartItem.ItemList())
                 {
@@ -38,7 +38,7 @@
 
         public double GetFinalPrice()
         {
-            if (DiscountApplied)
+            if (_DiscountApplied)
             {
                 var total = GetTotal();
                 return total - (total * _discount.GetDiscount(_discountCode)/100);

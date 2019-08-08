@@ -14,9 +14,9 @@ namespace AddToCart
     public class CategoryDiscount:IDiscount
     {
         private Dictionary<string, double> _category = new Dictionary<string, double>() {
-            {"grocery",10 },
-            {"educational",10 },
-            {"dairy",10 }
+            {"Grocery",10 },
+            {"Entertainment",10 },
+            {"Stationary",10 }
         };
 
         public double GetDiscount(string category)

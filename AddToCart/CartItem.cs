@@ -30,7 +30,7 @@ namespace AddToCart
             }
             catch (Exception)
             {
-                throw new EmptyCartException();
+                throw new NoSuchProductException();
             }
         }
 

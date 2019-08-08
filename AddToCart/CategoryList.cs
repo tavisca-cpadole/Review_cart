@@ -6,10 +6,10 @@ namespace AddToCart
 {
     public enum CategoryList
     {
-        grocery,
-        stationary,
-        entertainment,
-        utensils,
-        books
+        Grocery,
+        Stationary,
+        Entertainment,
+        Utensils,
+        Books
     }
 }
