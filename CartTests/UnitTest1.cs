@@ -11,8 +11,8 @@ namespace CartTests
         public void Add_To_Empty_Cart_test()
         {
             CartItem cartItem = new CartItem();
-            Product product1 = new Product("Apple",100,"grocery");
-            Product product2 = new Product("Banana",200, "grocery");
+            Product product1 = new Product("Apple",100,CategoryList.grocery.ToString());
+            Product product2 = new Product("Banana",200, CategoryList.grocery.ToString());
             cartItem.AddItem(product1);
 
             cartItem.AddItem(product2);
@@ -30,8 +30,8 @@ namespace CartTests
         public void Check_Total_Price_With_Category_Discount()
         {
             CartItem cartItem = new CartItem();
-            Product product1 = new Product("Apple", 100, "grocery");
-            Product product2 = new Product("Banana", 200, "grocery");
+            Product product1 = new Product("Apple", 100, CategoryList.grocery.ToString());
+            Product product2 = new Product("Banana", 200, CategoryList.grocery.ToString());
             cartItem.AddItem(product1);
             cartItem.AddItem(product2);
 
@@ -49,8 +49,8 @@ namespace CartTests
         public void Check_Total_Price_With_Cart_Discount()
         {
             CartItem cartItem = new CartItem();
-            Product product1 = new Product("Apple", 100, "grocery");
-            Product product2 = new Product("Banana", 200, "grocery");
+            Product product1 = new Product("Apple", 100, CategoryList.grocery.ToString());
+            Product product2 = new Product("Banana", 200, CategoryList.grocery.ToString());
             cartItem.AddItem(product1);
             cartItem.AddItem(product2);
             cartItem.AddItem(product2);
