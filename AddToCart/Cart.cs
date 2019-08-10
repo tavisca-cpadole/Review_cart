@@ -6,12 +6,12 @@
 
         private CartItem _cartItem;
         private IDiscount _discount;
-        private string _discountCode;
+        private string _isdiscountCode;
         public Cart(CartItem cartItem, IDiscount discount, string discountCode)
         {
-            this._cartItem = cartItem;
-            this._discount = discount;
-            this._discountCode = discountCode;
+            _cartItem = cartItem;
+            _discount = discount;
+            _isdiscountCode = discountCode;
             if (discountCode.Length > 1)
                 _DiscountApplied = true;
         }
@@ -41,7 +41,7 @@
             if (_DiscountApplied)
             {
                 var total = GetTotal();
-                return total - (total * _discount.GetDiscount(_discountCode)/100);
+                return total - (total * _discount.GetDiscount(_isdiscountCode)/100);
             }
             else
             {

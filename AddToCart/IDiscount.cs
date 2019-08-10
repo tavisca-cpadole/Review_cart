@@ -1,4 +1,4 @@
-﻿namespace AddToCart
+﻿    namespace AddToCart
 {
     public interface IDiscount
     {
